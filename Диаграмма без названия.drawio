@@ -1,0 +1,154 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Страница-1" id="TZjE8XPY4eTs27y5FAuP">
+    <mxGraphModel dx="5514" dy="2773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Клиениты" vertex="1">
+          <mxGeometry height="60" width="120" x="-600" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Виды оплат" vertex="1">
+          <mxGeometry height="60" width="120" x="-600" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Типы кузова&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; white-space: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20value%3D%22%D0%9A%D0%BB%D0%B8%D0%B5%D0%BD%D0%B8%D1%82%D1%8B%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2260%22%20width%3D%22120%22%20x%3D%22470%22%20y%3D%22400%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="-600" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Типы двигателя" vertex="1">
+          <mxGeometry height="60" width="120" x="-600" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Типы расположения" vertex="1">
+          <mxGeometry height="60" width="120" x="-600" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Покупка" vertex="1">
+          <mxGeometry height="60" width="120" x="-250" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Технические данные" vertex="1">
+          <mxGeometry height="60" width="120" x="-250" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Товар" vertex="1">
+          <mxGeometry height="60" width="120" x="200" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Страны" vertex="1">
+          <mxGeometry height="60" width="120" x="540" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Марки авто" vertex="1">
+          <mxGeometry height="60" width="120" x="540" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Код клиента&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="-600" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="ФИО" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-13" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Паспорт" vertex="1">
+          <mxGeometry height="50" width="120" x="-810" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Дом адрес&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="-810" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-15" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Телефон" vertex="1">
+          <mxGeometry height="50" width="120" x="-730" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-16" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Код вида оплаты&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-17" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Название" vertex="1">
+          <mxGeometry height="50" width="120" x="-743" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-18" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код типа" vertex="1">
+          <mxGeometry height="50" width="120" x="-743" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-19" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Наименование типа" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-20" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код типа" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-21" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Наименование типа" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код расположения" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-23" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Расположение двигателя" vertex="1">
+          <mxGeometry height="50" width="120" x="-740" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-25" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="№ покупки" vertex="1">
+          <mxGeometry height="50" width="120" x="-190" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-26" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Товар" vertex="1">
+          <mxGeometry height="50" width="120" x="-330" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-27" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Клиент" vertex="1">
+          <mxGeometry height="50" width="120" x="-410" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-28" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Дата" vertex="1">
+          <mxGeometry height="50" width="120" x="-400" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-29" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Доставка" vertex="1">
+          <mxGeometry height="50" width="120" x="-190" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-30" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Вид оплаты" vertex="1">
+          <mxGeometry height="50" width="120" x="-320" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-31" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код тех данных" vertex="1">
+          <mxGeometry height="50" width="120" x="-110" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-32" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Тип кузова" vertex="1">
+          <mxGeometry height="50" width="120" x="-380" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-33" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код дверей" vertex="1">
+          <mxGeometry height="50" width="120" x="-110" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-34" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Кол-во мест" vertex="1">
+          <mxGeometry height="50" width="120" x="-250" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-35" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Тип двигателя" vertex="1">
+          <mxGeometry height="50" width="120" x="-390" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-37" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Расположение двигателя" vertex="1">
+          <mxGeometry height="50" width="120" x="-370" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-38" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Рабочий объём двигателя" vertex="1">
+          <mxGeometry height="50" width="120" x="-240" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-39" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код товара" vertex="1">
+          <mxGeometry height="50" width="120" x="150" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-40" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Страна-изготовитель" vertex="1">
+          <mxGeometry height="50" width="120" x="290" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-41" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Марка авто" vertex="1">
+          <mxGeometry height="50" width="120" x="380" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-43" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Модель" vertex="1">
+          <mxGeometry height="50" width="120" x="60" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-44" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Цвет" vertex="1">
+          <mxGeometry height="50" width="120" x="50" y="545" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-45" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Наличие" vertex="1">
+          <mxGeometry height="50" width="130" x="380" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-46" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Цена" vertex="1">
+          <mxGeometry height="50" width="120" x="260" y="615" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-47" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код тех данных" vertex="1">
+          <mxGeometry height="50" width="120" x="120" y="615" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-48" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код страны" vertex="1">
+          <mxGeometry height="50" width="120" x="385" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-49" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Название страны" vertex="1">
+          <mxGeometry height="50" width="120" x="520" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-50" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Код марки" vertex="1">
+          <mxGeometry height="50" width="120" x="385" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="JxbbXRfY3GL4Vjq4-nnV-51" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Название марки" vertex="1">
+          <mxGeometry height="50" width="120" x="385" y="820" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
