@@ -1,0 +1,390 @@
+<mxfile host="app.diagrams.net" agent="claude">
+  <diagram name="Автосалон - ER-диаграмма (Чен)" id="diag1">
+    <mxGraphModel dx="3236" dy="1770" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="id3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="КЛИЕНТЫ" vertex="1">
+          <mxGeometry height="50" width="180" x="824.72" y="217.04000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="id4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ПОКУПКА" vertex="1">
+          <mxGeometry height="50" width="200" x="1342" y="314" as="geometry" />
+        </mxCell>
+        <mxCell id="id5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ТОВАР" vertex="1">
+          <mxGeometry height="50" width="200" x="1867" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="id6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ВИДЫ ОПЛАТЫ" vertex="1">
+          <mxGeometry height="50" width="180" x="828.22" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="id7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="МАРКИ АВТО" vertex="1">
+          <mxGeometry height="50" width="180" x="2430" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="id8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="СТРАНЫ" vertex="1">
+          <mxGeometry height="50" width="180" x="2467.73" y="286" as="geometry" />
+        </mxCell>
+        <mxCell id="id9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ТЕХНИЧЕСКИЕ ДАННЫЕ" vertex="1">
+          <mxGeometry height="50" width="220" x="1599.4899999999998" y="663.5" as="geometry" />
+        </mxCell>
+        <mxCell id="id10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ТИПЫ КУЗОВА" vertex="1">
+          <mxGeometry height="50" width="180" x="966.78" y="822.1599999999999" as="geometry" />
+        </mxCell>
+        <mxCell id="id11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ТИПЫ ДВИГАТЕЛЯ" vertex="1">
+          <mxGeometry height="50" width="180" x="881.22" y="543.3199999999999" as="geometry" />
+        </mxCell>
+        <mxCell id="id12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;" value="ТИПЫ РАСПОЛОЖЕНИЯ ДВИГАТЕЛЯ" vertex="1">
+          <mxGeometry height="50" width="260" x="850" y="669" as="geometry" />
+        </mxCell>
+        <mxCell id="id13" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код клиента&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="143" x="760" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="id14" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id15" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="ФИО" vertex="1">
+          <mxGeometry height="40" width="110" x="930.0018684219822" y="139.99982338594583" as="geometry" />
+        </mxCell>
+        <mxCell id="id16" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id17" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Паспорт" vertex="1">
+          <mxGeometry height="40" width="110" x="769.9949029814194" y="280.00017661405434" as="geometry" />
+        </mxCell>
+        <mxCell id="id18" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id19" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Домашний адрес" vertex="1">
+          <mxGeometry height="40" width="176" x="609.9950970185807" y="236.00017661405434" as="geometry" />
+        </mxCell>
+        <mxCell id="id20" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id21" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Телефон" vertex="1">
+          <mxGeometry height="40" width="110" x="659.9981315780178" y="173.36982338594584" as="geometry" />
+        </mxCell>
+        <mxCell id="id22" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id23" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Номер покупки&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="165" x="1377" y="206" as="geometry" />
+        </mxCell>
+        <mxCell id="id24" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id25" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Дата" vertex="1">
+          <mxGeometry height="40" width="110" x="1522.5096904477143" y="246" as="geometry" />
+        </mxCell>
+        <mxCell id="id26" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id27" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Доставка" vertex="1">
+          <mxGeometry height="40" width="110" x="1503.4996904477143" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="id28" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id29" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код клиента&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="143" x="1332.51" y="396" as="geometry" />
+        </mxCell>
+        <mxCell id="id30" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id31" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код товара&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="132" x="1190.000309552286" y="315.36000000000007" as="geometry" />
+        </mxCell>
+        <mxCell id="id32" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id33" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код вида оплаты&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="1222.5103095522857" y="245.99999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="id34" edge="1" parent="1" source="id4" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id35" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код товара&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="132" x="1977" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="id36" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id37" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код марки&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="121" x="2105.4909088590102" y="277.9968183557425" as="geometry" />
+        </mxCell>
+        <mxCell id="id38" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id39" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код страны&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="132" x="2113.99" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="id40" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id41" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код тех. данных&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="2051.69090885901" y="456.64318164425754" as="geometry" />
+        </mxCell>
+        <mxCell id="id42" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id43" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Модель" vertex="1">
+          <mxGeometry height="40" width="110" x="1950" y="414" as="geometry" />
+        </mxCell>
+        <mxCell id="id44" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id45" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Цвет" vertex="1">
+          <mxGeometry height="40" width="110" x="1790.99909114099" y="378.00318164425755" as="geometry" />
+        </mxCell>
+        <mxCell id="id46" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id47" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Наличие" vertex="1">
+          <mxGeometry height="40" width="110" x="1770" y="274" as="geometry" />
+        </mxCell>
+        <mxCell id="id48" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id47">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id49" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Цена" vertex="1">
+          <mxGeometry height="40" width="110" x="1866.99909114099" y="239.9968183557425" as="geometry" />
+        </mxCell>
+        <mxCell id="id50" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id51" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код вида оплаты&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="630" y="374" as="geometry" />
+        </mxCell>
+        <mxCell id="id52" edge="1" parent="1" source="id6" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id53" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Название" vertex="1">
+          <mxGeometry height="40" width="110" x="680" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="id54" edge="1" parent="1" source="id6" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id55" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код марки&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="121" x="2585.5" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="id56" edge="1" parent="1" source="id7" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id57" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Название марки" vertex="1">
+          <mxGeometry height="40" width="176" x="2665.73" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="id58" edge="1" parent="1" source="id7" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id59" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код страны&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="132" x="2515.73" y="213.37" as="geometry" />
+        </mxCell>
+        <mxCell id="id60" edge="1" parent="1" source="id8" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id61" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Название страны" vertex="1">
+          <mxGeometry height="40" width="187" x="2665.73" y="246" as="geometry" />
+        </mxCell>
+        <mxCell id="id62" edge="1" parent="1" source="id8" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id63" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код тех. данных&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="1566.4999999999998" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="id64" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id63">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id65" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код типа кузова&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="1828.4958928273911" y="623.4970703682161" as="geometry" />
+        </mxCell>
+        <mxCell id="id66" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id67" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код типа двигателя&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="220" x="1819.4928430992738" y="689.9999867112022" as="geometry" />
+        </mxCell>
+        <mxCell id="id68" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id67">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id69" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;i&gt;Код расположения&lt;/i&gt;" vertex="1">
+          <mxGeometry height="40" width="198" x="1702.9943299099784" y="748.2229429205819" as="geometry" />
+        </mxCell>
+        <mxCell id="id70" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id69">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id71" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Кол-во дверей" vertex="1">
+          <mxGeometry height="40" width="165" x="1541.9956700900211" y="760.0029429205819" as="geometry" />
+        </mxCell>
+        <mxCell id="id72" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id73" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Кол-во мест" vertex="1">
+          <mxGeometry height="40" width="143" x="1405.9571569007257" y="708.2199867112022" as="geometry" />
+        </mxCell>
+        <mxCell id="id74" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id73">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id75" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Раб. объём двигателя" vertex="1">
+          <mxGeometry height="40" width="242" x="1437.5041071726084" y="569.9970703682161" as="geometry" />
+        </mxCell>
+        <mxCell id="id76" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id77" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код типа кузова&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="187" x="760.78" y="786" as="geometry" />
+        </mxCell>
+        <mxCell id="id78" edge="1" parent="1" source="id10" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id77">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id79" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Наименование типа" vertex="1">
+          <mxGeometry height="40" width="209" x="750" y="852.0000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="id80" edge="1" parent="1" source="id10" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id79">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id81" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код типа двигателя&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="220" x="650" y="514.9999999999999" as="geometry" />
+        </mxCell>
+        <mxCell id="id82" edge="1" parent="1" source="id11" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id81">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id83" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Наименование типа" vertex="1">
+          <mxGeometry height="40" width="209" x="655.5" y="578.4999999999999" as="geometry" />
+        </mxCell>
+        <mxCell id="id84" edge="1" parent="1" source="id11" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id83">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id85" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;u&gt;Код расположения&lt;/u&gt;" vertex="1">
+          <mxGeometry height="40" width="198" x="622" y="673.5" as="geometry" />
+        </mxCell>
+        <mxCell id="id86" edge="1" parent="1" source="id12" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id85">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id87" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" value="Расположение двигателя" vertex="1">
+          <mxGeometry height="40" width="264" x="639" y="730.0000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="id88" edge="1" parent="1" source="id12" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;" target="id87">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="id89" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Оформляет" vertex="1">
+          <mxGeometry height="70" width="140" x="1060" y="206" as="geometry" />
+        </mxCell>
+        <mxCell id="id90" edge="1" parent="1" source="id3" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id89" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id91" edge="1" parent="1" source="id89" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id4" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id92" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Оплачивается" vertex="1">
+          <mxGeometry height="70" width="140" x="1060" y="366" as="geometry" />
+        </mxCell>
+        <mxCell id="id93" edge="1" parent="1" source="id6" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id92" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id94" edge="1" parent="1" source="id92" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id4" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id95" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Включает" vertex="1">
+          <mxGeometry height="70" width="140" x="1613.5" y="304" as="geometry" />
+        </mxCell>
+        <mxCell id="id96" edge="1" parent="1" source="id5" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id95" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id97" edge="1" parent="1" source="id95" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id4" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id98" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Выпускает" vertex="1">
+          <mxGeometry height="70" width="140" x="2283" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="id99" edge="1" parent="1" source="id7" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="id98" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id100" edge="1" parent="1" source="id98" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="id5" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1846.4007901668128" y="532.4503950834064" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id101" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Изготавливает" vertex="1">
+          <mxGeometry height="70" width="140" x="2290" y="276" as="geometry" />
+        </mxCell>
+        <mxCell id="id102" edge="1" parent="1" source="id8" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id101" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id103" edge="1" parent="1" source="id101" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id5" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id104" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Характеризует" vertex="1">
+          <mxGeometry height="70" width="140" x="1771.75" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="id105" edge="1" parent="1" source="id9" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id104" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id106" edge="1" parent="1" source="id104" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id5" value="1">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id107" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Комплектует" vertex="1">
+          <mxGeometry height="70" width="140" x="1289.9999999999998" y="782.0000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="id108" edge="1" parent="1" source="id10" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="id107" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1292.0758712735435" y="854.8520643632284" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id109" edge="1" parent="1" source="id107" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="id9" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1418.5721779829241" y="817.8460889914625" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id110" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Комплектует" vertex="1">
+          <mxGeometry height="70" width="140" x="1082.51" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="id111" edge="1" parent="1" source="id11" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1080" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id112" edge="1" parent="1" source="id110" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="id9" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id113" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;" value="Определяет" vertex="1">
+          <mxGeometry height="70" width="140" x="1140" y="653.5" as="geometry" />
+        </mxCell>
+        <mxCell id="id114" edge="1" parent="1" source="id12" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="id113" value="1">
+          <mxGeometry relative="1" x="-0.75" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1136.217391304348" y="773.9286956521742" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="id115" edge="1" parent="1" source="id113" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;fontSize=13;fontStyle=1;labelBackgroundColor=#ffffff;" target="id9" value="∞">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
