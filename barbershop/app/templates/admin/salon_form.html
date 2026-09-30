@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Изменить' if salon else 'Добавить' }} салон{% endblock %}
+{% block content %}
+  <h1 class="fw-bold mb-4">{{ 'Изменить' if salon else 'Добавить' }} салон</h1>
+
+  {# ============ ОСНОВНАЯ ФОРМА ============ #}
+  <form method="post" enctype="multipart/form-data" class="col-md-7">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="mb-3">
+      <label class="form-label">Название</label>
+      <input type="text" name="name" class="form-control"
+             value="{{ salon.name if salon else '' }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Город</label>
+      <select name="city_id" class="form-select">
+        <option value="">— не указан —</option>
+        {% for r in regions %}
+          <optgroup label="{{ r.name }}">
+            {% for c in r.cities %}
+              <option value="{{ c.id }}"
+                {% if salon and salon.city_id == c.id %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Адрес</label>
+      <input type="text" name="address" class="form-control"
+             value="{{ salon.address if salon else '' }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Телефон</label>
+      <input type="text" name="phone" class="form-control"
+             value="{{ salon.phone if salon else '' }}">
+    </div>
+
+    <div class="row">
+      <div class="col-6 mb-3">
+        <label class="form-label">Широта</label>
+        <input type="text" name="latitude" class="form-control"
+               value="{{ salon.latitude if salon else '' }}" placeholder="55.7558">
+      </div>
+      <div class="col-6 mb-3">
+        <label class="form-label">Долгота</label>
+        <input type="text" name="longitude" class="form-control"
+               value="{{ salon.longitude if salon else '' }}" placeholder="37.6173">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Ссылка на обложку (необязательно)</label>
+      <input type="text" name="photo_url" class="form-control"
+             value="{{ salon.photo_url if salon else '' }}"
+             placeholder="https://... или оставьте пустым">
+      <div class="form-text text-light-50">
+        Если не указывать — обложкой станет первое загруженное фото.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Загрузить фотографии</label>
+      <input type="file" name="photos" class="form-control"
+             multiple accept="image/png,image/jpeg,image/webp,image/gif">
+      <div class="form-text text-light-50">
+        Можно выбрать несколько сразу. Максимум 20 МБ на файл.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Описание</label>
+      <textarea name="description" class="form-control"
+                rows="3">{{ salon.description if salon else '' }}</textarea>
+    </div>
+
+    {% if salon %}
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" name="is_active"
+               id="is_active" {% if salon.is_active %}checked{% endif %}>
+        <label class="form-check-label" for="is_active">Салон активен</label>
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-brand">Сохранить</button>
+    <a href="{{ url_for('admin.salons') }}" class="btn btn-outline-secondary">Отмена</a>
+  </form>
+
+  {# ============ ГАЛЕРЕЯ — ВНЕ ОСНОВНОЙ ФОРМЫ ============ #}
+  {% if salon and salon.photos %}
+    <h5 class="fw-bold mt-4 mb-3">Текущие фотографии</h5>
+    <div class="photo-gallery">
+      {% for p in salon.photos %}
+        <div style="position:relative;">
+          <img src="{{ p.src }}" alt=""
+               onclick="window.open(this.src, '_blank')">
+          <form method="post"
+                action="{{ url_for('admin.salon_photo_delete', salon_id=salon.id, photo_id=p.id) }}"
+                style="position:absolute; top:6px; right:6px; margin:0;"
+                onsubmit="return confirm('Удалить это фото?');">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-sm btn-danger"
+                    title="Удалить фото">×</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

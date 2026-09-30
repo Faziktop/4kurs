@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Контакты — Vibe{% endblock %}
+{% block content %}
+  <h1 class="fw-bold mb-4">Контакты</h1>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card p-4 h-100">
+        <h5>Служба поддержки</h5>
+        <p class="text-light-50 mb-1">E-mail: <a href="mailto:support@vibe.local">support@vibe.local</a></p>
+        <p class="text-light-50 mb-1">Телефон: <a href="tel:+78000000000">+7 (800) 000-00-00</a></p>
+        <p class="text-light-50 mb-0">Ежедневно, 09:00–21:00</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card p-4 h-100">
+        <h5>Юридический адрес</h5>
+        <p class="text-light-50 mb-1">ООО «Vibe»</p>
+        <p class="text-light-50 mb-1">г. Москва, ул. Тверская, д. 10, офис 5</p>
+        <p class="text-light-50 mb-0">ИНН 0000000000, ОГРН 0000000000000</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4 mt-4">
+    <h5>Соцсети</h5>
+    <p class="text-light-50 mb-0">
+      Telegram: <a href="#">@vibe_barber</a> · VK: <a href="#">vk.com/vibe</a>
+    </p>
+  </div>
+{% endblock %}

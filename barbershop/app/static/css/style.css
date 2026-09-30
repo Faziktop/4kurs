@@ -1,0 +1,187 @@
+:root {
+  --vibe-black: #000000;
+  --vibe-dark: #111111;
+  --vibe-gray: #1c1c1c;
+  --vibe-border: #2a2a2a;
+  --vibe-muted: #a0a0a0;
+  --vibe-accent: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--vibe-black);
+  color: #eaeaea;
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+a { color: #ffffff; text-decoration: none; }
+a:hover { color: #cccccc; }
+
+/* ---------- Navbar ---------- */
+.app-navbar {
+  background: #000 !important;
+  border-bottom: 1px solid var(--vibe-border);
+}
+.navbar-brand { display: flex; align-items: center; gap: 10px; }
+.navbar-brand img { height: 32px; width: auto; }
+.navbar-brand .brand-text {
+  font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #fff;
+}
+.app-navbar .nav-link { color: #ddd !important; }
+.app-navbar .nav-link:hover { color: #fff !important; }
+
+/* ---------- Footer ---------- */
+.vibe-footer {
+  border-top: 1px solid var(--vibe-border);
+  padding: 20px 0;
+  margin-top: 60px;
+  color: var(--vibe-muted);
+  font-size: .9rem;
+  background: #000;
+}
+.vibe-footer img { height: 24px; width: auto; }
+
+/* ---------- Cards ---------- */
+.card,
+.card-salon {
+  background: var(--vibe-dark);
+  border: 1px solid var(--vibe-border);
+  color: #eaeaea;
+  border-radius: 12px;
+}
+
+.card-salon {
+  overflow: hidden;
+  transition: transform .15s, border-color .15s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-salon:hover { transform: translateY(-3px); border-color: #555; }
+
+.card-salon .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-salon .card-body .btn { margin-top: auto; }
+
+.salon-photo {
+  height: 200px;
+  background: #1a1a1a center/cover no-repeat;
+  display: flex; align-items: center; justify-content: center;
+  color: #444; font-size: 2.5rem;
+  flex-shrink: 0;
+}
+.salon-photo-small {
+  width: 96px; height: 96px; border-radius: 8px;
+  background: #222 center/cover no-repeat;
+  flex-shrink: 0;
+}
+
+/* ---------- Тексты ---------- */
+.text-light-50 { color: var(--vibe-muted) !important; }
+.text-muted { color: var(--vibe-muted) !important; }
+h1, h2, h3, h4, h5 { color: #fff; letter-spacing: .3px; }
+
+/* ---------- Buttons ---------- */
+.btn-brand {
+  background: #ffffff; border-color: #ffffff; color: #000; font-weight: 600;
+}
+.btn-brand:hover { background: #d0d0d0; border-color: #d0d0d0; color: #000; }
+
+.btn-outline-secondary { color: #cccccc; border-color: #444; }
+.btn-outline-secondary:hover { background: #222; color: #fff; border-color: #777; }
+
+/* ---------- Forms ---------- */
+.form-control, .form-select {
+  background: var(--vibe-dark);
+  border: 1px solid var(--vibe-border);
+  color: #eaeaea;
+}
+.form-control:focus, .form-select:focus {
+  background: var(--vibe-dark); color: #eaeaea;
+  border-color: #666; box-shadow: none;
+}
+.form-control::placeholder { color: #666; }
+.form-select option { background: var(--vibe-dark); color: #eaeaea; }
+
+/* ---------- Tables ---------- */
+.table { color: #eaeaea; }
+.table > :not(caption) > * > * {
+  background: var(--vibe-dark);
+  color: #eaeaea;
+  border-bottom-color: var(--vibe-border);
+}
+.table thead th {
+  color: #999; font-weight: 500; text-transform: uppercase; font-size: .78rem;
+  letter-spacing: .5px;
+}
+
+/* ---------- Alerts ---------- */
+.alert { border-radius: 10px; border: 1px solid var(--vibe-border); }
+.alert-warning { background: #2a1f00; color: #f0c674; }
+.alert-danger  { background: #2a0000; color: #f28b82; }
+.alert-success { background: #082b0a; color: #7ad17a; }
+.alert-info    { background: #001f2a; color: #7fd0e8; }
+.alert-secondary { background: #1a1a1a; color: #ccc; }
+
+/* ---------- Badges ---------- */
+.badge-status-pending   { background: #b8860b; }
+.badge-status-confirmed { background: #2e7d32; }
+.badge-status-cancelled { background: #8b1a1a; }
+.badge-status-completed { background: #1565c0; }
+
+/* ---------- View toggle (4 квадрата / 3 полоски) ---------- */
+.view-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--vibe-border);
+  border-radius: 10px;
+  background: var(--vibe-dark);
+}
+.view-toggle a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  color: #888;
+  transition: background .15s, color .15s;
+}
+.view-toggle a:hover { background: #222; color: #fff; }
+.view-toggle a.active { background: #fff; color: #000; }
+.view-toggle svg { display: block; }
+
+/* ---------- Фото-галерея на странице салона ---------- */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+.photo-gallery img {
+  width: 100%; height: 180px; object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--vibe-border);
+  cursor: pointer;
+  transition: transform .15s;
+}
+.photo-gallery img:hover { transform: scale(1.02); }
+
+.photo-main {
+  width: 100%; height: 380px; object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--vibe-border);
+  margin-bottom: 12px;
+}

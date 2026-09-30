@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Изменить' if specialist else 'Добавить' }} специалиста{% endblock %}
+{% block content %}
+  <h1 class="fw-bold mb-4">{{ 'Изменить специалиста' if specialist else 'Добавить специалиста' }}</h1>
+  <form method="post" class="col-md-6">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label class="form-label">Имя</label>
+      <input type="text" name="full_name" class="form-control" value="{{ specialist.full_name if specialist else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Специализация</label>
+      <input type="text" name="specialization" class="form-control" value="{{ specialist.specialization if specialist else '' }}" placeholder="Например: женские стрижки, окрашивание">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Описание</label>
+      <textarea name="description" class="form-control" rows="3">{{ specialist.description if specialist else '' }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ссылка на фото (необязательно)</label>
+      <input type="text" name="photo_url" class="form-control" value="{{ specialist.photo_url if specialist else '' }}">
+    </div>
+    {% if specialist %}
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" name="is_active" id="is_active" {% if specialist.is_active %}checked{% endif %}>
+      <label class="form-check-label" for="is_active">Специалист активен</label>
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-brand">Сохранить</button>
+    <a href="{{ url_for('moderator.specialists') }}" class="btn btn-outline-secondary">Отмена</a>
+  </form>
+{% endblock %}

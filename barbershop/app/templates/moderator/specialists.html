@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Специалисты — {{ salon.name }}{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold mb-0">Специалисты «{{ salon.name }}»</h1>
+    <a href="{{ url_for('moderator.specialist_new') }}" class="btn btn-brand">+ Добавить специалиста</a>
+  </div>
+
+  {% if not specialists %}
+    <div class="alert alert-secondary">Специалисты пока не добавлены.</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table bg-white align-middle">
+        <thead><tr><th>Имя</th><th>Специализация</th><th>Активен</th><th></th></tr></thead>
+        <tbody>
+        {% for sp in specialists %}
+          <tr>
+            <td class="fw-semibold">{{ sp.full_name }}</td>
+            <td>{{ sp.specialization or "—" }}</td>
+            <td>{% if sp.is_active %}<span class="badge bg-success">да</span>{% else %}<span class="badge bg-secondary">нет</span>{% endif %}</td>
+            <td class="text-end">
+              <a href="{{ url_for('moderator.specialist_edit', specialist_id=sp.id) }}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+              <form method="post" action="{{ url_for('moderator.specialist_delete', specialist_id=sp.id) }}" class="d-inline" onsubmit="return confirm('Удалить специалиста?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

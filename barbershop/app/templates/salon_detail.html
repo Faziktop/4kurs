@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ salon.name }} — Vibe{% endblock %}
+{% block content %}
+  <a href="{{ url_for('main.index') }}" class="text-decoration-none text-light-50">&larr; Все салоны</a>
+
+  {% set cover = salon.photo_src or (salon.photos[0].src if salon.photos else None) %}
+  {% if cover %}
+    <img src="{{ cover }}" alt="{{ salon.name }}" class="photo-main mt-3">
+  {% endif %}
+
+  <div class="d-flex justify-content-between align-items-start flex-wrap mb-4 mt-3">
+    <div>
+      <h1 class="fw-bold mb-1">{{ salon.name }}</h1>
+      <p class="text-light-50 mb-0">
+        📍 {{ salon.address }}{% if salon.city %} · {{ salon.city.name }}{% endif %}
+        {% if salon.phone %} · 📞 {{ salon.phone }}{% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('main.book', salon_id=salon.id) }}" class="btn btn-brand btn-lg mt-2">Записаться</a>
+  </div>
+
+  {% if salon.photos and salon.photos|length > 1 %}
+    <h5 class="fw-bold mb-2">Фотографии</h5>
+    <div class="photo-gallery">
+      {% for p in salon.photos %}
+        <img src="{{ p.src }}" alt="{{ salon.name }} — фото {{ loop.index }}"
+             onclick="window.open(this.src, '_blank')">
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if salon.description %}<p class="mb-4">{{ salon.description }}</p>{% endif %}
+
+  <h4 class="fw-bold mb-3">Услуги</h4>
+  {% if not services %}
+    <p class="text-light-50">Услуги пока не добавлены.</p>
+  {% else %}
+    <div class="table-responsive mb-4">
+      <table class="table align-middle">
+        <thead><tr><th>Услуга</th><th>Описание</th><th>Длительность</th><th>Цена</th></tr></thead>
+        <tbody>
+        {% for s in services %}
+          <tr>
+            <td class="fw-semibold">{{ s.name }}</td>
+            <td class="text-light-50 small">{{ s.description or "—" }}</td>
+            <td>{{ s.duration_minutes }} мин</td>
+            <td>{{ "%.0f"|format(s.price) }} ₽</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  <h4 class="fw-bold mb-3">Специалисты</h4>
+  {% if not specialists %}
+    <p class="text-light-50">Специалисты пока не добавлены.</p>
+  {% else %}
+    <div class="row g-3 mb-4">
+      {% for sp in specialists %}
+        <div class="col-md-4">
+          <div class="card h-100"><div class="card-body">
+            <h6 class="fw-bold mb-1">{{ sp.full_name }}</h6>
+            <p class="text-light-50 small mb-1">{{ sp.specialization or "" }}</p>
+            <p class="small">{{ sp.description or "" }}</p>
+          </div></div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if salon.latitude and salon.longitude %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <h4 class="fw-bold mb-3 mt-4">На карте</h4>
+    <div id="map" style="width:100%;height:400px;border-radius:14px;"></div>
+    <script>
+      var map = L.map('map').setView([{{ salon.latitude }}, {{ salon.longitude }}], 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  { attribution: '© OpenStreetMap' }).addTo(map);
+      L.marker([{{ salon.latitude }}, {{ salon.longitude }}]).addTo(map)
+        .bindPopup('<b>{{ salon.name }}</b><br>{{ salon.address }}');
+    </script>
+  {% endif %}
+{% endblock %}

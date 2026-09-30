@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет — Vibe{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <div>
+      <h1 class="fw-bold mb-1">Личный кабинет</h1>
+      <p class="text-light-50 mb-0">
+        {{ current_user.full_name }} · {{ current_user.email }}
+        {% if current_user.phone %} · {{ current_user.phone }}{% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('main.edit_profile') }}" class="btn btn-outline-secondary">Редактировать профиль</a>
+  </div>
+
+  {% if not current_user.phone_verified %}
+    <div class="alert alert-warning d-flex justify-content-between align-items-center">
+      <span>Телефон не подтверждён.</span>
+      <a href="{{ url_for('auth.verify_phone') }}" class="btn btn-sm btn-brand">Подтвердить</a>
+    </div>
+  {% endif %}
+
+  <h4 class="fw-bold mb-3">История записей</h4>
+  {% if not bookings %}
+    <div class="alert alert-secondary">
+      У вас пока нет записей. <a href="{{ url_for('main.index') }}">Выбрать салон</a>
+    </div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Салон</th><th>Услуга</th><th>Специалист</th>
+            <th>Дата и время</th><th>Статус</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for b in bookings %}
+          <tr>
+            <td>{{ b.salon.name }}</td>
+            <td>{{ b.service.name }}</td>
+            <td>{{ b.specialist.full_name if b.specialist else "—" }}</td>
+            <td>{{ b.booking_datetime.strftime('%d.%m.%Y %H:%M') }}</td>
+            <td><span class="badge badge-status-{{ b.status }}">{{ b.status_label }}</span></td>
+            <td>
+              {% if b.status in ("pending", "confirmed") %}
+                <form method="post"
+                      action="{{ url_for('main.cancel_booking', booking_id=b.id) }}"
+                      onsubmit="return confirm('Отменить запись?');">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Отменить</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

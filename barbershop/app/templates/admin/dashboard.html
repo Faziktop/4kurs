@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Админ-панель{% endblock %}
+{% block content %}
+  <h1 class="fw-bold mb-4">Админ-панель</h1>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card p-3 text-center"><div class="display-6 fw-bold">{{ salons_count }}</div><div class="text-muted">Парикмахерских</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center"><div class="display-6 fw-bold">{{ users_count }}</div><div class="text-muted">Пользователей</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center"><div class="display-6 fw-bold">{{ bookings_count }}</div><div class="text-muted">Всего записей</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center"><div class="display-6 fw-bold">{{ pending_count }}</div><div class="text-muted">Ожидают подтверждения</div></div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mb-4 flex-wrap">
+    <a href="{{ url_for('admin.salons') }}" class="btn btn-brand">Управление парикмахерскими</a>
+    <a href="{{ url_for('admin.users') }}" class="btn btn-outline-secondary">Пользователи и модераторы</a>
+  </div>
+
+  <h5 class="fw-bold mb-3">Парикмахерские сети</h5>
+  <div class="table-responsive">
+    <table class="table bg-white align-middle">
+      <thead><tr><th>Название</th><th>Адрес</th><th>Модераторы</th><th></th></tr></thead>
+      <tbody>
+      {% for s in salons %}
+        <tr>
+          <td class="fw-semibold">{{ s.name }}</td>
+          <td>{{ s.address }}</td>
+          <td>{{ s.moderators|selectattr('role','equalto','moderator')|list|length }}</td>
+          <td class="text-end">
+            <a href="{{ url_for('admin.salon_bookings', salon_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Записи</a>
+            <a href="{{ url_for('admin.salon_services', salon_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Услуги</a>
+            <a href="{{ url_for('admin.salon_specialists', salon_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Специалисты</a>
+            <a href="{{ url_for('admin.salon_edit', salon_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

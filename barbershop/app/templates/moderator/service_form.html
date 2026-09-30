@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Изменить' if service else 'Добавить' }} услугу{% endblock %}
+{% block content %}
+  <h1 class="fw-bold mb-4">{{ 'Изменить услугу' if service else 'Добавить услугу' }}</h1>
+  <form method="post" class="col-md-6">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label class="form-label">Название</label>
+      <input type="text" name="name" class="form-control" value="{{ service.name if service else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Описание</label>
+      <textarea name="description" class="form-control" rows="3">{{ service.description if service else '' }}</textarea>
+    </div>
+    <div class="row">
+      <div class="col-6 mb-3">
+        <label class="form-label">Цена, ₽</label>
+        <input type="number" step="1" min="0" name="price" class="form-control" value="{{ service.price if service else 0 }}" required>
+      </div>
+      <div class="col-6 mb-3">
+        <label class="form-label">Длительность, мин</label>
+        <input type="number" step="5" min="5" name="duration_minutes" class="form-control" value="{{ service.duration_minutes if service else 30 }}" required>
+      </div>
+    </div>
+    {% if service %}
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" name="is_active" id="is_active" {% if service.is_active %}checked{% endif %}>
+      <label class="form-check-label" for="is_active">Услуга активна</label>
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-brand">Сохранить</button>
+    <a href="{{ url_for('moderator.services') }}" class="btn btn-outline-secondary">Отмена</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Запись — {{ salon.name }}{% endblock %}
+{% block content %}
+  <a href="{{ url_for('main.salon_detail', salon_id=salon.id) }}"
+     class="text-decoration-none text-light-50">&larr; {{ salon.name }}</a>
+  <h1 class="fw-bold mt-2 mb-4">Запись в «{{ salon.name }}»</h1>
+
+  {% if not services or not specialists %}
+    <div class="alert alert-warning">
+      В этом салоне пока не заведены услуги или специалисты — запись временно недоступна.
+    </div>
+  {% else %}
+    <form method="get" class="row g-3 mb-4" id="filter-form">
+      <div class="col-md-4">
+        <label class="form-label">Услуга</label>
+        <select name="service_id" class="form-select"
+                onchange="document.getElementById('filter-form').submit()">
+          <option value="">— выберите услугу —</option>
+          {% for s in services %}
+            <option value="{{ s.id }}" {% if selected_service_id == s.id %}selected{% endif %}>
+              {{ s.name }} · {{ "%.0f"|format(s.price) }} ₽
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Специалист</label>
+        <select name="specialist_id" class="form-select"
+                onchange="document.getElementById('filter-form').submit()">
+          <option value="">— выберите специалиста —</option>
+          {% for sp in specialists %}
+            <option value="{{ sp.id }}" {% if selected_specialist_id == sp.id %}selected{% endif %}>
+              {{ sp.full_name }}{% if sp.specialization %} ({{ sp.specialization }}){% endif %}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Дата</label>
+        <input type="date" name="date" class="form-control"
+               value="{{ selected_date.isoformat() }}"
+               min="{{ now.date().isoformat() }}"
+               onchange="document.getElementById('filter-form').submit()">
+      </div>
+    </form>
+
+    {% if selected_specialist_id %}
+      <h5 class="fw-bold mb-2">Свободное время на {{ selected_date.strftime('%d.%m.%Y') }}</h5>
+      {% if not available_slots %}
+        <p class="text-light-50">На выбранную дату свободных слотов нет. Попробуйте другую дату.</p>
+      {% else %}
+        <form method="post" id="booking-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="service_id" value="{{ selected_service_id }}">
+          <input type="hidden" name="specialist_id" value="{{ selected_specialist_id }}">
+          <input type="hidden" name="slot" id="slot-input" value="">
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            {% for slot in available_slots %}
+              <button type="button" class="btn btn-outline-secondary slot-btn"
+                      data-value="{{ slot.strftime('%Y-%m-%dT%H:%M') }}"
+                      onclick="selectSlot(this)">{{ slot.strftime('%H:%M') }}</button>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Комментарий к записи (необязательно)</label>
+            <textarea name="note" class="form-control" rows="2"
+                      placeholder="Например: пожелания к стрижке"></textarea>
+          </div>
+          <button type="submit" class="btn btn-brand btn-lg" id="submit-btn" disabled>
+            Подтвердить запись
+          </button>
+        </form>
+      {% endif %}
+    {% else %}
+      <p class="text-light-50">Выберите услугу, специалиста и дату, чтобы увидеть свободное время.</p>
+    {% endif %}
+  {% endif %}
+
+  <script>
+    function selectSlot(btn) {
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('slot-input').value = btn.dataset.value;
+      document.getElementById('submit-btn').disabled = false;
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Специалисты — {{ salon.name }}{% endblock %}
+{% block content %}
+  <a href="{{ url_for('admin.dashboard') }}" class="text-decoration-none">&larr; Админ-панель</a>
+  <h1 class="fw-bold mt-2 mb-4">Специалисты «{{ salon.name }}»</h1>
+  {% if not specialists %}
+    <div class="alert alert-secondary">Специалисты пока не добавлены.</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table bg-white align-middle">
+        <thead><tr><th>Имя</th><th>Специализация</th><th>Активен</th></tr></thead>
+        <tbody>
+        {% for sp in specialists %}
+          <tr>
+            <td class="fw-semibold">{{ sp.full_name }}</td>
+            <td>{{ sp.specialization or "—" }}</td>
+            <td>{% if sp.is_active %}<span class="badge bg-success">да</span>{% else %}<span class="badge bg-secondary">нет</span>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+  <p class="text-muted small mt-3">Редактирование специалистов выполняется модератором парикмахерской.</p>
+{% endblock %}

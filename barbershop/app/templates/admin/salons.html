@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Парикмахерские — Админ-панель{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold mb-0">Парикмахерские сети</h1>
+    <a href="{{ url_for('admin.salon_new') }}" class="btn btn-brand">+ Добавить парикмахерскую</a>
+  </div>
+
+  {% if not salons %}
+    <div class="alert alert-secondary">Парикмахерские пока не добавлены.</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table bg-white align-middle">
+        <thead><tr><th>Название</th><th>Адрес</th><th>Телефон</th><th>Активна</th><th></th></tr></thead>
+        <tbody>
+        {% for s in salons %}
+          <tr>
+            <td class="fw-semibold">{{ s.name }}</td>
+            <td>{{ s.address }}</td>
+            <td>{{ s.phone or "—" }}</td>
+            <td>{% if s.is_active %}<span class="badge bg-success">да</span>{% else %}<span class="badge bg-secondary">нет</span>{% endif %}</td>
+            <td class="text-end">
+              <a href="{{ url_for('admin.salon_edit', salon_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+              <form method="post" action="{{ url_for('admin.salon_delete', salon_id=s.id) }}" class="d-inline" onsubmit="return confirm('Удалить парикмахерскую вместе со всеми услугами, специалистами и записями?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

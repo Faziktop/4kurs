@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block title %}Vibe — сеть барбершопов{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+      <h1 class="fw-bold mb-1">Салоны Vibe</h1>
+      <p class="text-light-50 mb-0">Онлайн-запись в пару кликов.</p>
+    </div>
+    <div class="view-toggle" role="group">
+      <a href="{{ url_for('main.index', q=q, city_id=selected_city_id, view='cards') }}"
+         class="{{ 'active' if view == 'cards' else '' }}" title="Карточки">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="0" y="0" width="7" height="7" rx="1.5"/>
+          <rect x="9" y="0" width="7" height="7" rx="1.5"/>
+          <rect x="0" y="9" width="7" height="7" rx="1.5"/>
+          <rect x="9" y="9" width="7" height="7" rx="1.5"/>
+        </svg>
+      </a>
+      <a href="{{ url_for('main.index', q=q, city_id=selected_city_id, view='list') }}"
+         class="{{ 'active' if view == 'list' else '' }}" title="Список">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="0" y="1" width="16" height="3" rx="1.5"/>
+          <rect x="0" y="6.5" width="16" height="3" rx="1.5"/>
+          <rect x="0" y="12" width="16" height="3" rx="1.5"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <form method="get" class="row g-2 mb-4 align-items-end" id="filters">
+    <input type="hidden" name="view" value="{{ view }}">
+    <input type="hidden" name="city_id" id="city-id-input" value="{{ selected_city_id or '' }}">
+
+    <div class="col-md-5">
+      <label class="form-label small text-light-50">Поиск по адресу или названию</label>
+      <input type="text" name="q" class="form-control" value="{{ q }}"
+             placeholder="ул. Тверская или Vibe">
+    </div>
+
+    <div class="col-md-4 position-relative">
+      <label class="form-label small text-light-50">Город</label>
+      <input type="text" id="city-search" class="form-control"
+             placeholder="Начните вводить название города"
+             autocomplete="off"
+             value="{% for r in regions %}{% for c in r.cities %}{% if c.id == selected_city_id %}{{ c.name }}{% endif %}{% endfor %}{% endfor %}">
+      <div id="city-dropdown"
+           class="list-group position-absolute w-100"
+           style="z-index:1000; max-height:280px; overflow:auto; display:none;"></div>
+    </div>
+
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-brand w-100">Найти</button>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-outline-secondary w-100" id="geo-btn"
+              title="Определить мой город">📍</button>
+    </div>
+  </form>
+
+  <div id="geo-msg" class="small text-light-50 mb-3"></div>
+
+  {% if not salons %}
+    <div class="alert alert-secondary">Ничего не найдено.</div>
+  {% endif %}
+
+  {% if view == 'cards' %}
+    <div class="row g-4">
+      {% for salon in salons %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card card-salon">
+            <div class="salon-photo"
+                 {% if salon.photo_src %}style="background-image:url('{{ salon.photo_src }}')"{% endif %}>
+              {% if not salon.photo_src %}✂{% endif %}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-2">{{ salon.name }}</h5>
+              <p class="card-text small text-light-50 mb-3">
+                {% if salon.city %}{{ salon.city.name }}{% endif %}
+              </p>
+              <a href="{{ url_for('main.salon_detail', salon_id=salon.id) }}"
+                 class="btn btn-brand w-100">Подробнее</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="d-flex flex-column gap-3">
+      {% for salon in salons %}
+        <div class="card p-3 d-flex flex-row align-items-center gap-3">
+          <div class="salon-photo-small"
+               {% if salon.photo_src %}style="background-image:url('{{ salon.photo_src }}')"{% endif %}></div>
+          <div class="flex-grow-1">
+            <h5 class="mb-1">{{ salon.name }}</h5>
+            {% if salon.city %}
+              <div class="text-light-50 small">{{ salon.city.name }}</div>
+            {% endif %}
+          </div>
+          <a href="{{ url_for('main.salon_detail', salon_id=salon.id) }}"
+             class="btn btn-brand">Открыть</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <script>
+    const cityInput = document.getElementById('city-search');
+    const cityDropdown = document.getElementById('city-dropdown');
+    const cityIdInput = document.getElementById('city-id-input');
+    let lastQuery = '';
+
+    cityInput.addEventListener('input', function () {
+      const q = this.value.trim();
+      lastQuery = q;
+      cityIdInput.value = '';
+      if (q.length < 1) { cityDropdown.style.display = 'none'; return; }
+      fetch("{{ url_for('main.api_cities') }}?q=" + encodeURIComponent(q))
+        .then(r => r.json())
+        .then(list => {
+          if (q !== lastQuery) return;
+          cityDropdown.innerHTML = '';
+          if (!list.length) {
+            const d = document.createElement('div');
+            d.className = 'list-group-item';
+            d.style.background = '#111';
+            d.style.color = '#888';
+            d.textContent = 'Ничего не найдено';
+            cityDropdown.appendChild(d);
+            cityDropdown.style.display = 'block';
+            return;
+          }
+          list.forEach(c => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'list-group-item list-group-item-action';
+            a.style.background = '#111';
+            a.style.color = '#eee';
+            a.textContent = c.name + (c.region ? ' — ' + c.region : '');
+            a.onclick = (e) => {
+              e.preventDefault();
+              cityInput.value = c.name;
+              cityIdInput.value = c.id;
+              cityDropdown.style.display = 'none';
+            };
+            cityDropdown.appendChild(a);
+          });
+          cityDropdown.style.display = 'block';
+        })
+        .catch(() => {
+          cityDropdown.style.display = 'none';
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!cityDropdown.contains(e.target) && e.target !== cityInput) {
+        cityDropdown.style.display = 'none';
+      }
+    });
+
+    document.getElementById('geo-btn').addEventListener('click', function () {
+      const msg = document.getElementById('geo-msg');
+      msg.textContent = 'Определяем...';
+      if (!navigator.geolocation) {
+        msg.textContent = 'Геолокация недоступна в вашем браузере.';
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          fetch("{{ url_for('main.api_find_city') }}?lat=" + pos.coords.latitude + "&lon=" + pos.coords.longitude)
+            .then(r => r.json())
+            .then(data => {
+              if (data.ok) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('city_id', data.city_id);
+                window.location.href = url.toString();
+              } else if (data.nearest) {
+                msg.textContent = `Ближайший — ${data.nearest} (${data.distance_km} км). Выберите вручную.`;
+              } else {
+                msg.textContent = 'Не удалось определить. Выберите город вручную.';
+              }
+            })
+            .catch(() => { msg.textContent = 'Ошибка запроса.'; });
+        },
+        function () { msg.textContent = 'Доступ к геолокации запрещён. Выберите город вручную.'; },
+        { timeout: 8000 }
+      );
+    });
+  </script>
+{% endblock %}

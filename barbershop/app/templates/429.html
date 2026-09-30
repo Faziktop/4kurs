@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Слишком много запросов — Vibe{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="alert alert-warning text-center">
+        <h1 class="display-5 fw-bold">429</h1>
+        <p class="mb-0">
+          Слишком много запросов. Ваш IP временно заблокирован.
+          Попробуйте через несколько минут.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

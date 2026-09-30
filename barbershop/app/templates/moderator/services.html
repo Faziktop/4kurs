@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Услуги — {{ salon.name }}{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold mb-0">Услуги «{{ salon.name }}»</h1>
+    <a href="{{ url_for('moderator.service_new') }}" class="btn btn-brand">+ Добавить услугу</a>
+  </div>
+
+  {% if not services %}
+    <div class="alert alert-secondary">Услуги пока не добавлены.</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table bg-white align-middle">
+        <thead><tr><th>Название</th><th>Длительность</th><th>Цена</th><th>Активна</th><th></th></tr></thead>
+        <tbody>
+        {% for s in services %}
+          <tr>
+            <td class="fw-semibold">{{ s.name }}</td>
+            <td>{{ s.duration_minutes }} мин</td>
+            <td>{{ "%.0f"|format(s.price) }} ₽</td>
+            <td>{% if s.is_active %}<span class="badge bg-success">да</span>{% else %}<span class="badge bg-secondary">нет</span>{% endif %}</td>
+            <td class="text-end">
+              <a href="{{ url_for('moderator.service_edit', service_id=s.id) }}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+              <form method="post" action="{{ url_for('moderator.service_delete', service_id=s.id) }}" class="d-inline" onsubmit="return confirm('Удалить услугу?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}
