@@ -1,16 +1,234 @@
-"MainFormAll.expUIButtonPrinters_Click(object, EventArgs)" является устаревшим.
-"Legend" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Legend" и "Microsoft.Office.Interop.Excel.Legend".
-"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
-"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
-"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
-"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
-"MainFormAll.expUIButtonUsers_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonLicenses_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonInventory_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonPasswords_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonContacts_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonDatabase_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonCreateNewTicket_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonIconSettings_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonIconLogout_Click(object, EventArgs)" является устаревшим.
-"MainFormAll.expUIButtonIconDataUser_Click(object, EventArgs)" является устаревшим.
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+
+namespace SupportDesk.forms
+{
+    public partial class StatisticsForm : Form
+    {
+        #region Настройка формы
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+        #endregion
+
+        #region Локальные переменные
+        private SQLiteConnection DB;
+        #endregion
+
+        public StatisticsForm()
+        {
+            InitializeComponent();
+        }
+
+        private async void StatisticsForm_Load(object sender, EventArgs e)
+        {
+            DB = new SQLiteConnection(Database.connectionString);
+            await DB.OpenAsync();
+            comboBoxPeriod.SelectedItem = "За всё время";
+            LoadAllStatistics();
+        }
+
+        #region Управление формой
+        private void ButtonExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void FormControl(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _ = ReleaseCapture();
+                _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+        #region Фильтр по периоду
+        private void ComboBoxPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadAllStatistics();
+        }
+
+        private string GetDateFilter()
+        {
+            switch (comboBoxPeriod.Text)
+            {
+                case "За неделю":
+                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.AddDays(-7):dd.MM.yyyy}%'";
+                case "За месяц":
+                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.Month:D2}.{DateTime.Now.Year}%'";
+                default:
+                    return "";
+            }
+        }
+        #endregion
+
+        #region Загрузка всей статистики
+        private void LoadAllStatistics()
+        {
+            string filter = GetDateFilter();
+            LoadCounters(filter);
+            LoadStatusChart(filter);
+            LoadMonthChart();
+            LoadTopExecutors(filter);
+        }
+
+        private void LoadCounters(string filter)
+        {
+            try
+            {
+                SQLiteCommand cmd1 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter}", DB);
+                object count1 = cmd1.ExecuteScalar();
+                labelAllRequests.Text = $"{count1}";
+
+                SQLiteCommand cmd2 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
+                _ = cmd2.Parameters.AddWithValue("status", "Выполнена");
+                object count2 = cmd2.ExecuteScalar();
+                labelCompleted.Text = $"{count2}";
+
+                SQLiteCommand cmd3 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
+                _ = cmd3.Parameters.AddWithValue("status", "В работе");
+                object count3 = cmd3.ExecuteScalar();
+                labelInWork.Text = $"{count3}";
+
+                SQLiteCommand cmd4 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
+                _ = cmd4.Parameters.AddWithValue("status", "Новая");
+                object count4 = cmd4.ExecuteScalar();
+                labelNew.Text = $"{count4}";
+            }
+            catch (Exception ex)
+            {
+                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки счётчиков", "Error");
+            }
+        }
+
+        private void LoadStatusChart(string filter)
+        {
+            try
+            {
+                chartStatus.Series.Clear();
+                chartStatus.Titles.Clear();
+                chartStatus.Titles.Add("Заявки по статусам");
+                chartStatus.Legends.Clear();
+                // === ИСПРАВЛЕНИЕ: полное имя для Legend ===
+                chartStatus.Legends.Add(new System.Windows.Forms.DataVisualization.Charting.Legend("Default"));
+                // === КОНЕЦ ИСПРАВЛЕНИЯ ===
+
+                // === ИСПРАВЛЕНИЕ: полное имя для Series ===
+                System.Windows.Forms.DataVisualization.Charting.Series series =
+                    new System.Windows.Forms.DataVisualization.Charting.Series("Статусы");
+                // === КОНЕЦ ИСПРАВЛЕНИЯ ===
+
+                series.ChartType = SeriesChartType.Pie;
+                series.IsValueShownAsLabel = true;
+
+                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.status}], COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter} GROUP BY [{Table_requests.status}]", DB);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string status = reader[0].ToString();
+                    int count = Convert.ToInt32(reader[1]);
+                    if (status == "") status = "Не указан";
+                    _ = series.Points.AddXY(status, count);
+                }
+                reader.Close();
+
+                chartStatus.Series.Add(series);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика статусов", "Error");
+            }
+        }
+
+        private void LoadMonthChart()
+        {
+            try
+            {
+                chartMonth.Series.Clear();
+                chartMonth.Titles.Clear();
+                chartMonth.Titles.Add("Заявки за последние 6 месяцев");
+
+                // === ИСПРАВЛЕНИЕ: полное имя для Series ===
+                System.Windows.Forms.DataVisualization.Charting.Series series =
+                    new System.Windows.Forms.DataVisualization.Charting.Series("Заявки");
+                // === КОНЕЦ ИСПРАВЛЕНИЯ ===
+
+                series.ChartType = SeriesChartType.Column;
+                series.IsValueShownAsLabel = true;
+
+                for (int i = 5; i >= 0; i--)
+                {
+                    DateTime month = DateTime.Now.AddMonths(-i);
+                    string monthPattern = $".{month.Month:D2}.{month.Year}";
+                    string monthName = month.ToString("MMM yyyy", new System.Globalization.CultureInfo("ru-RU"));
+
+                    SQLiteCommand cmd = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.time}] LIKE @pattern", DB);
+                    _ = cmd.Parameters.AddWithValue("pattern", $"%{monthPattern}%");
+                    object count = cmd.ExecuteScalar();
+
+                    _ = series.Points.AddXY(monthName, count);
+                }
+
+                chartMonth.Series.Add(series);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика по месяцам", "Error");
+            }
+        }
+
+        private void LoadTopExecutors(string filter)
+        {
+            try
+            {
+                dataGridViewTopExecutors.Rows.Clear();
+
+                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.executor}], COUNT(*) as Cnt FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status AND [{Table_requests.executor}] != '' AND [{Table_requests.executor}] IS NOT NULL {filter} GROUP BY [{Table_requests.executor}] ORDER BY Cnt DESC LIMIT 5", DB);
+                _ = cmd.Parameters.AddWithValue("status", "Выполнена");
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                int place = 1;
+                while (reader.Read())
+                {
+                    string executor = reader[0].ToString();
+                    string count = reader[1].ToString();
+                    _ = dataGridViewTopExecutors.Rows.Add(place, executor, count);
+                    place++;
+                }
+                reader.Close();
+
+                if (dataGridViewTopExecutors.Rows.Count == 0)
+                {
+                    _ = dataGridViewTopExecutors.Rows.Add("-", "Нет данных", "-");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки топа исполнителей", "Error");
+            }
+        }
+        #endregion
+
+        #region Обновить
+        private void ButtonRefresh_Click(object sender, EventArgs e)
+        {
+            LoadAllStatistics();
+        }
+        #endregion
+    }
+}
