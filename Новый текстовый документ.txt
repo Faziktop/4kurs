@@ -1,233 +1,120 @@
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-
-namespace SupportDesk.forms
-{
-    public partial class StatisticsForm : Form
-    {
-        #region Настройка формы
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-        [DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
-        #endregion
-
-        #region Локальные переменные
-        private SQLiteConnection DB;
-        #endregion
-
-        public StatisticsForm()
-        {
-            InitializeComponent();
-        }
-
-        private async void StatisticsForm_Load(object sender, EventArgs e)
-        {
-            DB = new SQLiteConnection(Database.connectionString);
-            await DB.OpenAsync();
-            comboBoxPeriod.SelectedItem = "За всё время";
-            LoadAllStatistics();
-        }
-
-        #region Управление формой
-        private void ButtonExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void FormControl(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                _ = ReleaseCapture();
-                _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Close();
-        }
-        #endregion
-
-        #region Фильтр по периоду
-        private void ComboBoxPeriod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadAllStatistics();
-        }
-
-        private string GetDateFilter()
-        {
-            switch (comboBoxPeriod.Text)
-            {
-                case "За неделю":
-                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.AddDays(-7):dd.MM.yyyy}%'";
-                case "За месяц":
-                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.Month:D2}.{DateTime.Now.Year}%'";
-                default:
-                    return "";
-            }
-        }
-        #endregion
-
-        #region Загрузка всей статистики
-        private void LoadAllStatistics()
-        {
-            string filter = GetDateFilter();
-            LoadCounters(filter);
-            LoadStatusChart(filter);
-            LoadMonthChart();
-            LoadTopExecutors(filter);
-        }
-
-        private void LoadCounters(string filter)
-        {
-            try
-            {
-                // Всего заявок
-                SQLiteCommand cmd1 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter}", DB);
-                object count1 = cmd1.ExecuteScalar();
-                labelAllRequests.Text = $"{count1}";
-
-                // Выполнено
-                SQLiteCommand cmd2 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd2.Parameters.AddWithValue("status", "Выполнена");
-                object count2 = cmd2.ExecuteScalar();
-                labelCompleted.Text = $"{count2}";
-
-                // В работе
-                SQLiteCommand cmd3 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd3.Parameters.AddWithValue("status", "В работе");
-                object count3 = cmd3.ExecuteScalar();
-                labelInWork.Text = $"{count3}";
-
-                // Новые
-                SQLiteCommand cmd4 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd4.Parameters.AddWithValue("status", "Новая");
-                object count4 = cmd4.ExecuteScalar();
-                labelNew.Text = $"{count4}";
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки счётчиков", "Error");
-            }
-        }
-
-        private void LoadStatusChart(string filter)
-        {
-            try
-            {
-                chartStatus.Series.Clear();
-                chartStatus.Titles.Clear();
-                chartStatus.Titles.Add("Заявки по статусам");
-
-                Series series = new Series("Статусы")
-                {
-                    ChartType = SeriesChartType.Pie,
-                    IsValueShownAsLabel = true
-                };
-
-                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.status}], COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter} GROUP BY [{Table_requests.status}]", DB);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    string status = reader[0].ToString();
-                    int count = Convert.ToInt32(reader[1]);
-                    if (status == "") status = "Не указан";
-                    _ = series.Points.AddXY(status, count);
-                }
-                reader.Close();
-
-                chartStatus.Series.Add(series);
-                chartStatus.Legends.Clear();
-                Legend legend = new Legend("Default");
-                chartStatus.Legends.Add(legend);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика статусов", "Error");
-            }
-        }
-
-        private void LoadMonthChart()
-        {
-            try
-            {
-                chartMonth.Series.Clear();
-                chartMonth.Titles.Clear();
-                chartMonth.Titles.Add("Заявки за последние 6 месяцев");
-
-                Series series = new Series("Заявки")
-                {
-                    ChartType = SeriesChartType.Column,
-                    IsValueShownAsLabel = true
-                };
-
-                for (int i = 5; i >= 0; i--)
-                {
-                    DateTime month = DateTime.Now.AddMonths(-i);
-                    string monthPattern = $".{month.Month:D2}.{month.Year}";
-                    string monthName = month.ToString("MMM yyyy", new System.Globalization.CultureInfo("ru-RU"));
-
-                    SQLiteCommand cmd = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.time}] LIKE @pattern", DB);
-                    _ = cmd.Parameters.AddWithValue("pattern", $"%{monthPattern}%");
-                    object count = cmd.ExecuteScalar();
-
-                    _ = series.Points.AddXY(monthName, count);
-                }
-
-                chartMonth.Series.Add(series);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика по месяцам", "Error");
-            }
-        }
-
-        private void LoadTopExecutors(string filter)
-        {
-            try
-            {
-                dataGridViewTopExecutors.Rows.Clear();
-
-                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.executor}], COUNT(*) as Cnt FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status AND [{Table_requests.executor}] != '' AND [{Table_requests.executor}] IS NOT NULL {filter} GROUP BY [{Table_requests.executor}] ORDER BY Cnt DESC LIMIT 5", DB);
-                _ = cmd.Parameters.AddWithValue("status", "Выполнена");
-
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                int place = 1;
-                while (reader.Read())
-                {
-                    string executor = reader[0].ToString();
-                    string count = reader[1].ToString();
-                    _ = dataGridViewTopExecutors.Rows.Add(place, executor, count);
-                    place++;
-                }
-                reader.Close();
-
-                if (dataGridViewTopExecutors.Rows.Count == 0)
-                {
-                    _ = dataGridViewTopExecutors.Rows.Add("-", "Нет данных", "-");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки топа исполнителей", "Error");
-            }
-        }
-        #endregion
-
-        #region Обновить
-        private void ButtonRefresh_Click(object sender, EventArgs e)
-        {
-            LoadAllStatistics();
-        }
-        #endregion
-    }
-}
+Тип "StatisticsForm" уже содержит определение для "WM_NCLBUTTONDOWN".
+Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
+Тип "StatisticsForm" уже содержит определение для "HT_CAPTION".
+Тип "StatisticsForm" уже определяет член "SendMessage" с такими же типами параметров.
+Тип "StatisticsForm" уже определяет член "ReleaseCapture" с такими же типами параметров.
+Тип "StatisticsForm" уже содержит определение для "DB".
+Тип "StatisticsForm" уже определяет член "StatisticsForm" с такими же типами параметров.
+Имя "InitializeComponent" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "StatisticsForm_Load" с такими же типами параметров.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "comboBoxPeriod" не существует в текущем контексте.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
+Тип "StatisticsForm" уже определяет член "ButtonExit_Click" с такими же типами параметров.
+Тип "StatisticsForm" уже определяет член "FormControl" с такими же типами параметров.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.ReleaseCapture() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(19)]" и "SupportDesk.forms.StatisticsForm.ReleaseCapture() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(19)]"
+Неоднозначность между "StatisticsForm.WM_NCLBUTTONDOWN" и "StatisticsForm.WM_NCLBUTTONDOWN"
+Неоднозначность между "StatisticsForm.HT_CAPTION" и "StatisticsForm.HT_CAPTION"
+Тип "StatisticsForm" уже определяет член "MainForm_FormClosed" с такими же типами параметров.
+Тип "StatisticsForm" уже определяет член "ComboBoxPeriod_SelectedIndexChanged" с такими же типами параметров.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
+Тип "StatisticsForm" уже определяет член "GetDateFilter" с такими же типами параметров.
+Имя "comboBoxPeriod" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "LoadAllStatistics" с такими же типами параметров.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.GetDateFilter() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(67)]" и "SupportDesk.forms.StatisticsForm.GetDateFilter() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(67)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadCounters(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(91)]" и "SupportDesk.forms.StatisticsForm.LoadCounters(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(91)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadStatusChart(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(124)]" и "SupportDesk.forms.StatisticsForm.LoadStatusChart(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(124)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadMonthChart() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(160)]" и "SupportDesk.forms.StatisticsForm.LoadMonthChart() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(160)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadTopExecutors(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(195)]" и "SupportDesk.forms.StatisticsForm.LoadTopExecutors(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(195)]"
+Тип "StatisticsForm" уже определяет член "LoadCounters" с такими же типами параметров.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelAllRequests" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelCompleted" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelInWork" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelNew" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "LoadStatusChart" с такими же типами параметров.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Series"
+Имя "SeriesChartType" не существует в текущем контексте.
+"Series" не содержит определение для "IsValueShownAsLabel".
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+"Series.Points(object)" является метод, который недопустим в данном контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Legend"
+Имя "chartStatus" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "LoadMonthChart" с такими же типами параметров.
+Имя "chartMonth" не существует в текущем контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Series"
+Имя "SeriesChartType" не существует в текущем контексте.
+"Series" не содержит определение для "IsValueShownAsLabel".
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+"Series.Points(object)" является метод, который недопустим в данном контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "LoadTopExecutors" с такими же типами параметров.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Тип "StatisticsForm" уже определяет член "ButtonRefresh_Click" с такими же типами параметров.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
+Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
+Имя "InitializeComponent" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "comboBoxPeriod" не существует в текущем контексте.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.ReleaseCapture() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(19)]" и "SupportDesk.forms.StatisticsForm.ReleaseCapture() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(19)]"
+Неоднозначность между "StatisticsForm.WM_NCLBUTTONDOWN" и "StatisticsForm.WM_NCLBUTTONDOWN"
+Неоднозначность между "StatisticsForm.HT_CAPTION" и "StatisticsForm.HT_CAPTION"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
+Имя "comboBoxPeriod" не существует в текущем контексте.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.GetDateFilter() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(67)]" и "SupportDesk.forms.StatisticsForm.GetDateFilter() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(67)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadCounters(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(91)]" и "SupportDesk.forms.StatisticsForm.LoadCounters(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(91)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadStatusChart(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(124)]" и "SupportDesk.forms.StatisticsForm.LoadStatusChart(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(124)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadMonthChart() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(160)]" и "SupportDesk.forms.StatisticsForm.LoadMonthChart() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(160)]"
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadTopExecutors(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(195)]" и "SupportDesk.forms.StatisticsForm.LoadTopExecutors(string) [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(195)]"
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelAllRequests" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelCompleted" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelInWork" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "labelNew" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Series"
+Имя "SeriesChartType" не существует в текущем контексте.
+"Series" не содержит определение для "IsValueShownAsLabel".
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+"Series.Points(object)" является метод, который недопустим в данном контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartStatus" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Legend"
+Имя "chartStatus" не существует в текущем контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Не удается создать экземпляр абстрактного типа или интерфейса "Series"
+Имя "SeriesChartType" не существует в текущем контексте.
+"Series" не содержит определение для "IsValueShownAsLabel".
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+"Series.Points(object)" является метод, который недопустим в данном контексте.
+Имя "chartMonth" не существует в текущем контексте.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Неоднозначность между "StatisticsForm.DB" и "StatisticsForm.DB"
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Имя "dataGridViewTopExecutors" не существует в текущем контексте.
+Неоднозначный вызов следующих методов или свойств: "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.Designer.cs(82)]" и "SupportDesk.forms.StatisticsForm.LoadAllStatistics() [C:\Users\student.IZHKOOP\Downloads\VS\SupportDesk_4.1-main\SupportDesk\forms\StatisticsForm.cs(82)]"
