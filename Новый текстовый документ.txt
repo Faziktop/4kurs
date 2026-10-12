@@ -1,224 +1,411 @@
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-
 namespace SupportDesk.forms
 {
-    public partial class StatisticsForm : Form
+    partial class StatisticsForm
     {
-        #region Настройка формы
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-        [DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        private void InitializeComponent()
+        {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.buttonExit = new ExpUI.dll.ExpUIButtonIcon();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxPeriod = new System.Windows.Forms.ComboBox();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.panelCounters = new System.Windows.Forms.Panel();
+            this.panelNew = new System.Windows.Forms.Panel();
+            this.labelNew = new System.Windows.Forms.Label();
+            this.labelNewText = new System.Windows.Forms.Label();
+            this.panelInWork = new System.Windows.Forms.Panel();
+            this.labelInWork = new System.Windows.Forms.Label();
+            this.labelInWorkText = new System.Windows.Forms.Label();
+            this.panelCompleted = new System.Windows.Forms.Panel();
+            this.labelCompleted = new System.Windows.Forms.Label();
+            this.labelCompletedText = new System.Windows.Forms.Label();
+            this.panelAll = new System.Windows.Forms.Panel();
+            this.labelAllRequests = new System.Windows.Forms.Label();
+            this.labelAllText = new System.Windows.Forms.Label();
+            this.chartStatus = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartMonth = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dataGridViewTopExecutors = new System.Windows.Forms.DataGridView();
+            this.ColumnPlace = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnExecutor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelTopTitle = new System.Windows.Forms.Label();
+            this.panelTop.SuspendLayout();
+            this.panelCounters.SuspendLayout();
+            this.panelNew.SuspendLayout();
+            this.panelInWork.SuspendLayout();
+            this.panelCompleted.SuspendLayout();
+            this.panelAll.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMonth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopExecutors)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // panelTop
+            // 
+            this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(116)))), ((int)(((byte)(228)))));
+            this.panelTop.Controls.Add(this.buttonExit);
+            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(1180, 40);
+            this.panelTop.TabIndex = 0;
+            this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormControl);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(116)))), ((int)(((byte)(228)))));
+            this.buttonExit.BorderColor = System.Drawing.Color.Black;
+            this.buttonExit.BorderSize = 1;
+            this.buttonExit.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.buttonExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonExit.DisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.buttonExit.HoverColor = System.Drawing.Color.Red;
+            this.buttonExit.Location = new System.Drawing.Point(1155, 8);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Remember = false;
+            this.buttonExit.RememberColor = System.Drawing.Color.White;
+            this.buttonExit.ShowBorder = false;
+            this.buttonExit.Size = new System.Drawing.Size(20, 20);
+            this.buttonExit.StyleButton = ExpUI.dll.ExpUIButtonIcon.styleButton.Standart;
+            this.buttonExit.TabIndex = 1;
+            this.buttonExit.Text = "expUIButtonIcon1";
+            this.buttonExit.Click += new System.EventHandler(this.ButtonExit_Click);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1180, 40);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Статистика и аналитика";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormControl);
+            // 
+            // comboBoxPeriod
+            // 
+            this.comboBoxPeriod.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPeriod.Font = new System.Drawing.Font("Arial", 11F);
+            this.comboBoxPeriod.FormattingEnabled = true;
+            this.comboBoxPeriod.Items.AddRange(new object[] {
+            "За всё время",
+            "За месяц",
+            "За неделю"});
+            this.comboBoxPeriod.Location = new System.Drawing.Point(20, 55);
+            this.comboBoxPeriod.Name = "comboBoxPeriod";
+            this.comboBoxPeriod.Size = new System.Drawing.Size(200, 25);
+            this.comboBoxPeriod.TabIndex = 1;
+            this.comboBoxPeriod.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPeriod_SelectedIndexChanged);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRefresh.FlatAppearance.BorderSize = 0;
+            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRefresh.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold);
+            this.buttonRefresh.ForeColor = System.Drawing.Color.White;
+            this.buttonRefresh.Location = new System.Drawing.Point(230, 55);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(120, 25);
+            this.buttonRefresh.TabIndex = 2;
+            this.buttonRefresh.Text = "Обновить";
+            this.buttonRefresh.UseVisualStyleBackColor = false;
+            this.buttonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
+            // 
+            // panelCounters
+            // 
+            this.panelCounters.Controls.Add(this.panelNew);
+            this.panelCounters.Controls.Add(this.panelInWork);
+            this.panelCounters.Controls.Add(this.panelCompleted);
+            this.panelCounters.Controls.Add(this.panelAll);
+            this.panelCounters.Location = new System.Drawing.Point(20, 95);
+            this.panelCounters.Name = "panelCounters";
+            this.panelCounters.Size = new System.Drawing.Size(1140, 130);
+            this.panelCounters.TabIndex = 3;
+            // 
+            // panelAll
+            // 
+            this.panelAll.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panelAll.Controls.Add(this.labelAllRequests);
+            this.panelAll.Controls.Add(this.labelAllText);
+            this.panelAll.Location = new System.Drawing.Point(0, 0);
+            this.panelAll.Name = "panelAll";
+            this.panelAll.Size = new System.Drawing.Size(270, 130);
+            this.panelAll.TabIndex = 0;
+            // 
+            // labelAllRequests
+            // 
+            this.labelAllRequests.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold);
+            this.labelAllRequests.ForeColor = System.Drawing.Color.White;
+            this.labelAllRequests.Location = new System.Drawing.Point(0, 40);
+            this.labelAllRequests.Name = "labelAllRequests";
+            this.labelAllRequests.Size = new System.Drawing.Size(270, 60);
+            this.labelAllRequests.TabIndex = 1;
+            this.labelAllRequests.Text = "0";
+            this.labelAllRequests.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAllText
+            // 
+            this.labelAllText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.labelAllText.ForeColor = System.Drawing.Color.White;
+            this.labelAllText.Location = new System.Drawing.Point(0, 10);
+            this.labelAllText.Name = "labelAllText";
+            this.labelAllText.Size = new System.Drawing.Size(270, 25);
+            this.labelAllText.TabIndex = 0;
+            this.labelAllText.Text = "Всего заявок";
+            this.labelAllText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelCompleted
+            // 
+            this.panelCompleted.BackColor = System.Drawing.Color.SeaGreen;
+            this.panelCompleted.Controls.Add(this.labelCompleted);
+            this.panelCompleted.Controls.Add(this.labelCompletedText);
+            this.panelCompleted.Location = new System.Drawing.Point(290, 0);
+            this.panelCompleted.Name = "panelCompleted";
+            this.panelCompleted.Size = new System.Drawing.Size(270, 130);
+            this.panelCompleted.TabIndex = 1;
+            // 
+            // labelCompleted
+            // 
+            this.labelCompleted.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold);
+            this.labelCompleted.ForeColor = System.Drawing.Color.White;
+            this.labelCompleted.Location = new System.Drawing.Point(0, 40);
+            this.labelCompleted.Name = "labelCompleted";
+            this.labelCompleted.Size = new System.Drawing.Size(270, 60);
+            this.labelCompleted.TabIndex = 1;
+            this.labelCompleted.Text = "0";
+            this.labelCompleted.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelCompletedText
+            // 
+            this.labelCompletedText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.labelCompletedText.ForeColor = System.Drawing.Color.White;
+            this.labelCompletedText.Location = new System.Drawing.Point(0, 10);
+            this.labelCompletedText.Name = "labelCompletedText";
+            this.labelCompletedText.Size = new System.Drawing.Size(270, 25);
+            this.labelCompletedText.TabIndex = 0;
+            this.labelCompletedText.Text = "Выполнено";
+            this.labelCompletedText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelInWork
+            // 
+            this.panelInWork.BackColor = System.Drawing.Color.Orange;
+            this.panelInWork.Controls.Add(this.labelInWork);
+            this.panelInWork.Controls.Add(this.labelInWorkText);
+            this.panelInWork.Location = new System.Drawing.Point(580, 0);
+            this.panelInWork.Name = "panelInWork";
+            this.panelInWork.Size = new System.Drawing.Size(270, 130);
+            this.panelInWork.TabIndex = 2;
+            // 
+            // labelInWork
+            // 
+            this.labelInWork.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold);
+            this.labelInWork.ForeColor = System.Drawing.Color.White;
+            this.labelInWork.Location = new System.Drawing.Point(0, 40);
+            this.labelInWork.Name = "labelInWork";
+            this.labelInWork.Size = new System.Drawing.Size(270, 60);
+            this.labelInWork.TabIndex = 1;
+            this.labelInWork.Text = "0";
+            this.labelInWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelInWorkText
+            // 
+            this.labelInWorkText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.labelInWorkText.ForeColor = System.Drawing.Color.White;
+            this.labelInWorkText.Location = new System.Drawing.Point(0, 10);
+            this.labelInWorkText.Name = "labelInWorkText";
+            this.labelInWorkText.Size = new System.Drawing.Size(270, 25);
+            this.labelInWorkText.TabIndex = 0;
+            this.labelInWorkText.Text = "В работе";
+            this.labelInWorkText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelNew
+            // 
+            this.panelNew.BackColor = System.Drawing.Color.Crimson;
+            this.panelNew.Controls.Add(this.labelNew);
+            this.panelNew.Controls.Add(this.labelNewText);
+            this.panelNew.Location = new System.Drawing.Point(870, 0);
+            this.panelNew.Name = "panelNew";
+            this.panelNew.Size = new System.Drawing.Size(270, 130);
+            this.panelNew.TabIndex = 3;
+            // 
+            // labelNew
+            // 
+            this.labelNew.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold);
+            this.labelNew.ForeColor = System.Drawing.Color.White;
+            this.labelNew.Location = new System.Drawing.Point(0, 40);
+            this.labelNew.Name = "labelNew";
+            this.labelNew.Size = new System.Drawing.Size(270, 60);
+            this.labelNew.TabIndex = 1;
+            this.labelNew.Text = "0";
+            this.labelNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelNewText
+            // 
+            this.labelNewText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.labelNewText.ForeColor = System.Drawing.Color.White;
+            this.labelNewText.Location = new System.Drawing.Point(0, 10);
+            this.labelNewText.Name = "labelNewText";
+            this.labelNewText.Size = new System.Drawing.Size(270, 25);
+            this.labelNewText.TabIndex = 0;
+            this.labelNewText.Text = "Новые";
+            this.labelNewText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chartStatus
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartStatus.ChartAreas.Add(chartArea1);
+            this.chartStatus.Location = new System.Drawing.Point(20, 240);
+            this.chartStatus.Name = "chartStatus";
+            this.chartStatus.Size = new System.Drawing.Size(560, 400);
+            this.chartStatus.TabIndex = 4;
+            // 
+            // chartMonth
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartMonth.ChartAreas.Add(chartArea2);
+            this.chartMonth.Location = new System.Drawing.Point(600, 240);
+            this.chartMonth.Name = "chartMonth";
+            this.chartMonth.Size = new System.Drawing.Size(560, 400);
+            this.chartMonth.TabIndex = 5;
+            // 
+            // dataGridViewTopExecutors
+            // 
+            this.dataGridViewTopExecutors.AllowUserToAddRows = false;
+            this.dataGridViewTopExecutors.AllowUserToDeleteRows = false;
+            this.dataGridViewTopExecutors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTopExecutors.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10F);
+            this.dataGridViewTopExecutors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTopExecutors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTopExecutors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnPlace,
+            this.ColumnExecutor,
+            this.ColumnCount});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
+            this.dataGridViewTopExecutors.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTopExecutors.Location = new System.Drawing.Point(20, 680);
+            this.dataGridViewTopExecutors.Name = "dataGridViewTopExecutors";
+            this.dataGridViewTopExecutors.ReadOnly = true;
+            this.dataGridViewTopExecutors.RowHeadersVisible = false;
+            this.dataGridViewTopExecutors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTopExecutors.Size = new System.Drawing.Size(1140, 180);
+            this.dataGridViewTopExecutors.TabIndex = 6;
+            // 
+            // ColumnPlace
+            // 
+            this.ColumnPlace.FillWeight = 15F;
+            this.ColumnPlace.HeaderText = "Место";
+            this.ColumnPlace.Name = "ColumnPlace";
+            this.ColumnPlace.ReadOnly = true;
+            // 
+            // ColumnExecutor
+            // 
+            this.ColumnExecutor.FillWeight = 55F;
+            this.ColumnExecutor.HeaderText = "Исполнитель";
+            this.ColumnExecutor.Name = "ColumnExecutor";
+            this.ColumnExecutor.ReadOnly = true;
+            // 
+            // ColumnCount
+            // 
+            this.ColumnCount.FillWeight = 30F;
+            this.ColumnCount.HeaderText = "Закрыто заявок";
+            this.ColumnCount.Name = "ColumnCount";
+            this.ColumnCount.ReadOnly = true;
+            // 
+            // labelTopTitle
+            // 
+            this.labelTopTitle.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.labelTopTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(116)))), ((int)(((byte)(228)))));
+            this.labelTopTitle.Location = new System.Drawing.Point(20, 650);
+            this.labelTopTitle.Name = "labelTopTitle";
+            this.labelTopTitle.Size = new System.Drawing.Size(1140, 25);
+            this.labelTopTitle.TabIndex = 7;
+            this.labelTopTitle.Text = "Топ-5 исполнителей по закрытым заявкам";
+            this.labelTopTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StatisticsForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1180, 880);
+            this.ControlBox = false;
+            this.Controls.Add(this.labelTopTitle);
+            this.Controls.Add(this.dataGridViewTopExecutors);
+            this.Controls.Add(this.chartMonth);
+            this.Controls.Add(this.chartStatus);
+            this.Controls.Add(this.panelCounters);
+            this.Controls.Add(this.buttonRefresh);
+            this.Controls.Add(this.comboBoxPeriod);
+            this.Controls.Add(this.panelTop);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(1182, 882);
+            this.MinimumSize = new System.Drawing.Size(1182, 882);
+            this.Name = "StatisticsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.StatisticsForm_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormControl);
+            this.panelTop.ResumeLayout(false);
+            this.panelCounters.ResumeLayout(false);
+            this.panelAll.ResumeLayout(false);
+            this.panelCompleted.ResumeLayout(false);
+            this.panelInWork.ResumeLayout(false);
+            this.panelNew.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMonth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopExecutors)).EndInit();
+            this.ResumeLayout(false);
+        }
+
         #endregion
 
-        #region Локальные переменные
-        private SQLiteConnection DB;
-        #endregion
-
-        public StatisticsForm()
-        {
-            InitializeComponent();
-        }
-
-        private async void StatisticsForm_Load(object sender, EventArgs e)
-        {
-            DB = new SQLiteConnection(Database.connectionString);
-            await DB.OpenAsync();
-            comboBoxPeriod.SelectedItem = "За всё время";
-            LoadAllStatistics();
-        }
-
-        #region Управление формой
-        private void ButtonExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void FormControl(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                _ = ReleaseCapture();
-                _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Close();
-        }
-        #endregion
-
-        #region Фильтр по периоду
-        private void ComboBoxPeriod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadAllStatistics();
-        }
-
-        private string GetDateFilter()
-        {
-            switch (comboBoxPeriod.Text)
-            {
-                case "За неделю":
-                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.AddDays(-7):dd.MM.yyyy}%'";
-                case "За месяц":
-                    return $"AND [{Table_requests.theDate}] LIKE '%{DateTime.Now.Month:D2}.{DateTime.Now.Year}%'";
-                default:
-                    return "";
-            }
-        }
-        #endregion
-
-        #region Загрузка всей статистики
-        private void LoadAllStatistics()
-        {
-            string filter = GetDateFilter();
-            LoadCounters(filter);
-            LoadStatusChart(filter);
-            LoadMonthChart();
-            LoadTopExecutors(filter);
-        }
-
-        private void LoadCounters(string filter)
-        {
-            try
-            {
-                SQLiteCommand cmd1 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter}", DB);
-                object count1 = cmd1.ExecuteScalar();
-                labelAllRequests.Text = $"{count1}";
-
-                SQLiteCommand cmd2 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd2.Parameters.AddWithValue("status", "Выполнена");
-                object count2 = cmd2.ExecuteScalar();
-                labelCompleted.Text = $"{count2}";
-
-                SQLiteCommand cmd3 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd3.Parameters.AddWithValue("status", "В работе");
-                object count3 = cmd3.ExecuteScalar();
-                labelInWork.Text = $"{count3}";
-
-                SQLiteCommand cmd4 = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status {filter}", DB);
-                _ = cmd4.Parameters.AddWithValue("status", "Новая");
-                object count4 = cmd4.ExecuteScalar();
-                labelNew.Text = $"{count4}";
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки счётчиков", "Error");
-            }
-        }
-
-        private void LoadStatusChart(string filter)
-        {
-            try
-            {
-                chartStatus.Series.Clear();
-                chartStatus.Titles.Clear();
-                chartStatus.Titles.Add("Заявки по статусам");
-                chartStatus.Legends.Clear();
-                chartStatus.Legends.Add(new Legend("Default"));
-
-                Series series = new Series("Статусы");
-                series.ChartType = SeriesChartType.Pie;
-                series.IsValueShownAsLabel = true;
-
-                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.status}], COUNT(*) FROM [{Table_requests.main}] WHERE 1=1 {filter} GROUP BY [{Table_requests.status}]", DB);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    string status = reader[0].ToString();
-                    int count = Convert.ToInt32(reader[1]);
-                    if (status == "") status = "Не указан";
-                    _ = series.Points.AddXY(status, count);
-                }
-                reader.Close();
-
-                chartStatus.Series.Add(series);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика статусов", "Error");
-            }
-        }
-
-        private void LoadMonthChart()
-        {
-            try
-            {
-                chartMonth.Series.Clear();
-                chartMonth.Titles.Clear();
-                chartMonth.Titles.Add("Заявки за последние 6 месяцев");
-
-                Series series = new Series("Заявки");
-                series.ChartType = SeriesChartType.Column;
-                series.IsValueShownAsLabel = true;
-
-                for (int i = 5; i >= 0; i--)
-                {
-                    DateTime month = DateTime.Now.AddMonths(-i);
-                    string monthPattern = $".{month.Month:D2}.{month.Year}";
-                    string monthName = month.ToString("MMM yyyy", new System.Globalization.CultureInfo("ru-RU"));
-
-                    SQLiteCommand cmd = new SQLiteCommand($"SELECT COUNT(*) FROM [{Table_requests.main}] WHERE [{Table_requests.time}] LIKE @pattern", DB);
-                    _ = cmd.Parameters.AddWithValue("pattern", $"%{monthPattern}%");
-                    object count = cmd.ExecuteScalar();
-
-                    _ = series.Points.AddXY(monthName, count);
-                }
-
-                chartMonth.Series.Add(series);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка построения графика по месяцам", "Error");
-            }
-        }
-
-        private void LoadTopExecutors(string filter)
-        {
-            try
-            {
-                dataGridViewTopExecutors.Rows.Clear();
-
-                SQLiteCommand cmd = new SQLiteCommand($"SELECT [{Table_requests.executor}], COUNT(*) as Cnt FROM [{Table_requests.main}] WHERE [{Table_requests.status}] = @status AND [{Table_requests.executor}] != '' AND [{Table_requests.executor}] IS NOT NULL {filter} GROUP BY [{Table_requests.executor}] ORDER BY Cnt DESC LIMIT 5", DB);
-                _ = cmd.Parameters.AddWithValue("status", "Выполнена");
-
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                int place = 1;
-                while (reader.Read())
-                {
-                    string executor = reader[0].ToString();
-                    string count = reader[1].ToString();
-                    _ = dataGridViewTopExecutors.Rows.Add(place, executor, count);
-                    place++;
-                }
-                reader.Close();
-
-                if (dataGridViewTopExecutors.Rows.Count == 0)
-                {
-                    _ = dataGridViewTopExecutors.Rows.Add("-", "Нет данных", "-");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBoxUI.Show($"{ex.Message}", "Ошибка загрузки топа исполнителей", "Error");
-            }
-        }
-        #endregion
-
-        #region Обновить
-        private void ButtonRefresh_Click(object sender, EventArgs e)
-        {
-            LoadAllStatistics();
-        }
-        #endregion
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.Label label1;
+        private ExpUI.dll.ExpUIButtonIcon buttonExit;
+        private System.Windows.Forms.ComboBox comboBoxPeriod;
+        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Panel panelCounters;
+        private System.Windows.Forms.Panel panelAll;
+        private System.Windows.Forms.Label labelAllRequests;
+        private System.Windows.Forms.Label labelAllText;
+        private System.Windows.Forms.Panel panelCompleted;
+        private System.Windows.Forms.Label labelCompleted;
+        private System.Windows.Forms.Label labelCompletedText;
+        private System.Windows.Forms.Panel panelInWork;
+        private System.Windows.Forms.Label labelInWork;
+        private System.Windows.Forms.Label labelInWorkText;
+        private System.Windows.Forms.Panel panelNew;
+        private System.Windows.Forms.Label labelNew;
+        private System.Windows.Forms.Label labelNewText;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartStatus;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartMonth;
+        private System.Windows.Forms.DataGridView dataGridViewTopExecutors;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPlace;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnExecutor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
+        private System.Windows.Forms.Label labelTopTitle;
     }
 }
