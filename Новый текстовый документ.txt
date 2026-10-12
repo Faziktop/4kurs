@@ -1,18 +1,16 @@
-"Series" не содержит определения "IsValueShownAsLabel", и не удалось найти доступный метод расширения "IsValueShownAsLabel", принимающий тип "Series" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Не удается создать экземпляр абстрактного типа или интерфейса "Legend"
-Не удается создать экземпляр абстрактного типа или интерфейса "Series"
-Имя "SeriesChartType" не существует в текущем контексте.
-"Series" не содержит определения "IsValueShownAsLabel", и не удалось найти доступный метод расширения "IsValueShownAsLabel", принимающий тип "Series" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку).
-"Series.Points(object)" является метод, который недопустим в данном контексте.
-Не удается создать экземпляр абстрактного типа или интерфейса "Series"
-Имя "SeriesChartType" не существует в текущем контексте.
-"Series.Points(object)" является метод, который недопустим в данном контексте.
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
-Тип или имя пространства имен "DataVisualization" не существует в пространстве имен "System.Windows.Forms" (возможно, отсутствует ссылка на сборку).
+"MainFormAll.expUIButtonPrinters_Click(object, EventArgs)" является устаревшим.
+"Legend" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Legend" и "Microsoft.Office.Interop.Excel.Legend".
+"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
+"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
+"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
+"Series" является неоднозначной ссылкой между "System.Windows.Forms.DataVisualization.Charting.Series" и "Microsoft.Office.Interop.Excel.Series".
+"MainFormAll.expUIButtonUsers_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonLicenses_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonInventory_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonPasswords_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonContacts_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonDatabase_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonCreateNewTicket_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonIconSettings_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonIconLogout_Click(object, EventArgs)" является устаревшим.
+"MainFormAll.expUIButtonIconDataUser_Click(object, EventArgs)" является устаревшим.
