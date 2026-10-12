@@ -1,2 +1,24 @@
-this.expUIButtonExcel.TextAlign = ExpUI.dll.ExpUIButton.textAlign.MiddleRight;
-            this.expUIButtonExcel.Click += new System.EventHandler(this.ExpUIButtonExcel_Click);
+// 
+            // expUIButtonStatistics
+            // 
+            this.expUIButtonStatistics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(116)))), ((int)(((byte)(228)))));
+            this.expUIButtonStatistics.BorderSize = 1;
+            this.expUIButtonStatistics.ClickColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.expUIButtonStatistics.ColorTextForBorder = System.Drawing.Color.White;
+            this.expUIButtonStatistics.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.expUIButtonStatistics.DisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.expUIButtonStatistics.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.expUIButtonStatistics.ForeColor = System.Drawing.Color.White;
+            this.expUIButtonStatistics.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.expUIButtonStatistics.Image = null;
+            this.expUIButtonStatistics.Location = new System.Drawing.Point(0, 690);
+            this.expUIButtonStatistics.Name = "expUIButtonStatistics";
+            this.expUIButtonStatistics.Remember = false;
+            this.expUIButtonStatistics.ResponsiveFontOn = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.expUIButtonStatistics.ResponsiveText = true;
+            this.expUIButtonStatistics.Size = new System.Drawing.Size(200, 35);
+            this.expUIButtonStatistics.StyleButton = ExpUI.dll.ExpUIButton.styleButton.Standart;
+            this.expUIButtonStatistics.TabIndex = 70;
+            this.expUIButtonStatistics.Text = "Статистика";
+            this.expUIButtonStatistics.TextAlign = ExpUI.dll.ExpUIButton.textAlign.MiddleRight;
+            this.expUIButtonStatistics.Click += new System.EventHandler(this.ExpUIButtonStatistics_Click);
